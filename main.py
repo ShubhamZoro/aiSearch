@@ -29,8 +29,6 @@ date= datetime.utcnow()
 seconds =(date.total_seconds())
 milliseconds = round(seconds*1000)
 
-print()
-
 mycursor.execute("SELECT * FROM search")
 myresult = mycursor.fetchall()
 for x in myresult:
