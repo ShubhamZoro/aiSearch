@@ -4,8 +4,8 @@ import mysql.connector
 # main.py
 from secret import secrets
 import datetime
-import calendar
-from datetime import date, datetime
+import time
+from datetime import datetime,timedelta
 
 
  
@@ -23,11 +23,7 @@ mydb = mysql.connector.connect(
 mycursor = mydb.cursor()
 
 
-
-
-date= datetime.utcnow() 
-seconds =(date.total_seconds())
-milliseconds = round(seconds*1000)
+epochTimeInMicroSeconds = int(time.time()*1000000)
 
 mycursor.execute("SELECT * FROM search")
 myresult = mycursor.fetchall()
@@ -38,7 +34,7 @@ def get_value():
    e_text=edit.get()
    print(e_text)
    sql = "INSERT INTO search (SEARCHKEY, TIME) VALUES (%s, %s)"
-   val = (e_text, milliseconds)
+   val = (e_text, epochTimeInMicroSeconds)
    mycursor.execute(sql, val)
 
    mydb.commit()
@@ -129,7 +125,7 @@ def find():
 	edit.focus_set()
 butt.config(command=get_value)
 
-find();
+find()
 
 
 
